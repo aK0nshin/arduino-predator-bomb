@@ -14,10 +14,11 @@
 #define REMOTE_PIN 9
 #define TUMBLER_PIN 10
 #define BOOZER_PIN 11
-#define BOOM_PIN 11
+#define BOOM_PIN 12
 
 // === Settings ===
-#define initialTimer 120  // в секундах
+#define initialTimer 1800  // в секундах
+#define remoteTimer 120  // в секундах
 
 
 #define ONE_SECOND 1000
@@ -32,7 +33,7 @@ uint8_t (*encodeDigit)(uint8_t);
 void (*button1Push)();
 void (*button2Push)();
 void (*button3Push)();
-int8_t totalSecs;
+int32_t totalSecs;
 bool timerOn;
 bool readTmblr;
 
@@ -117,7 +118,8 @@ void checkControls() {
   }
   if (digitalRead(TUMBLER_PIN) == HIGH) {
     if (readTmblr) {
-      timerOn = true;
+      resetTimer();
+      startTimer();
       readTmblr = false;
     }
   } else {
@@ -125,8 +127,7 @@ void checkControls() {
   }
 }
 
-void tick()
-{
+void tick() {
   if (!timerOn) {
     return;
   }
@@ -148,8 +149,17 @@ void tick()
 
 void sad_melody() {
   digitalWrite(BOOZER_PIN, HIGH);
-  delay(1000);
+  delay(200);
   digitalWrite(BOOZER_PIN, LOW);
+  delay(200);
+  digitalWrite(BOOZER_PIN, HIGH);
+  delay(200);
+  digitalWrite(BOOZER_PIN, LOW);
+  delay(200);
+  digitalWrite(BOOZER_PIN, HIGH);
+  delay(200);
+  digitalWrite(BOOZER_PIN, LOW);
+  delay(200);
 }
 
 void boom()
