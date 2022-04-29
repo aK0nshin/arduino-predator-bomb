@@ -68,8 +68,8 @@ uint8_t* encodePair(uint8_t x) {
 }
 
 void showTime(uint8_t secs) {
-  tm_display.setSegments(encodePair(secs / 60), 2, 2);
-  tm_display.setSegments(encodePair(secs % 60), 2, 0);
+  tm_display.setSegments(encodePair(secs / 60), 2, 0);
+  tm_display.setSegments(encodePair(secs % 60), 2, 2);
 }
 
 void showStatus() {

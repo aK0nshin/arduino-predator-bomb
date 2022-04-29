@@ -49,6 +49,9 @@ void setup() {
   pinMode(BOOZER_PIN, OUTPUT);
   pinMode(BOOM_PIN, OUTPUT);
 
+  digitalWrite(BOOZER_PIN, LOW);
+  digitalWrite(BOOM_PIN, LOW);
+
   
   encodeDigit = encodePredatorDigit; // tm_display.encodeDigit;
   button1Push = divide_secs_2;
@@ -142,7 +145,9 @@ void tick()
 }
 
 void sad_melody() {
-  
+  digitalWrite(BOOZER_PIN, HIGH);
+  delay(1000);
+  digitalWrite(BOOZER_PIN, LOW);
 }
 
 void boom()
