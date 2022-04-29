@@ -17,9 +17,8 @@
 #define BOOM_PIN 12
 
 // === Settings ===
-#define initialTimer 1800  // в секундах
-#define remoteTimer 120  // в секундах
-
+int32_t initialTimer = 1800;  // в секундах
+int32_t remoteTimer = 120;  // в секундах
 
 #define ONE_SECOND 1000
 #define DEBOUNCE_DELAY 500
