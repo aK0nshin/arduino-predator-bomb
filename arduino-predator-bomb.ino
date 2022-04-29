@@ -2,6 +2,7 @@
 #include <TM1637Display.h>
 
 
+
 // === PINS ==
 #define DISPLAY_CLK_PIN 2
 #define DISPLAY_DIO_PIN 3
@@ -21,6 +22,7 @@
 
 #define ONE_SECOND 1000
 #define DEBOUNCE_DELAY 500
+#define BOOM_DURATION 5000
 
 // === Components ===
 TM1637Display tm_display(DISPLAY_CLK_PIN, DISPLAY_DIO_PIN);
@@ -54,13 +56,14 @@ void setup() {
   button2Push = set_total_secs_10;
   timerOn = false;
   readTmblr = true;
+
+  tm_display.clear();
+  tm_display.setBrightness(7);
 }
 
 void loop() {
   checkControls();
-  if (timerOn) {
-    tick();
-  }
+  tick();
 }
 
 void checkControls() {
@@ -119,8 +122,13 @@ void checkControls() {
 
 void tick()
 {
+  if (!timerOn) {
+    return;
+  }
   if (totalSecs < 0) {
-    return boom();
+    boom();
+    timerOn = false;
+    return;
   }
   
   static uint32_t previousMillis;
@@ -133,7 +141,14 @@ void tick()
   }
 }
 
+void sad_melody() {
+  
+}
+
 void boom()
 {
+  sad_melody();
   digitalWrite(BOOM_PIN, HIGH);
+  delay(BOOM_DURATION);
+  digitalWrite(BOOM_PIN, LOW);
 }

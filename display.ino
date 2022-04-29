@@ -52,27 +52,27 @@ const uint8_t digitToHumanSegment[] = {
   0b01110001     // F
   };
 
-uint8_t encodePredatorDigit(uint8_t digit)
-{
+uint8_t encodePredatorDigit(uint8_t digit) {
   return digitToPredatorSegment[digit & 0x0f];
 }
 
-uint8_t encodeHumanDigit(uint8_t digit)
-{
+uint8_t encodeHumanDigit(uint8_t digit) {
   return digitToHumanSegment[digit & 0x0f];
 }
 
-uint8_t* encodePair(uint8_t x)
-{
+uint8_t* encodePair(uint8_t x) {
   static uint8_t r[2];
   r[0] = encodeDigit(x / 10);
   r[1] = encodeDigit(x % 10);
   return r;
 }
 
-void showTime(uint8_t secs)
-{
-  tm_display.setBrightness(0x0f);
+void showTime(uint8_t secs) {
   tm_display.setSegments(encodePair(secs / 60), 2, 2);
   tm_display.setSegments(encodePair(secs % 60), 2, 0);
+}
+
+void showStatus() {
+  uint8_t data[] = { encodePredatorDigit(10), encodePredatorDigit(11), encodePredatorDigit(12), encodePredatorDigit(13) };
+  tm_display.setSegments(data);
 }
