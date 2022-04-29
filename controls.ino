@@ -21,6 +21,7 @@ void startTimer() {
 void resetTimer() {
   stopTimer();
   totalSecs = initialTimer;
+  showTime(totalSecs);
 }
 
 void remoteReset() {
@@ -28,5 +29,5 @@ void remoteReset() {
   totalSecs = remoteTimer;
   showStatus();
   delay(ONE_SECOND);
-  tm_display.clear();
+  showTime(totalSecs);
 }
