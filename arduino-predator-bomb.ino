@@ -56,7 +56,7 @@ void setup() {
   encodeDigit = encodePredatorDigit; // tm_display.encodeDigit;
   button1Push = divide_secs_2;
   button2Push = divide_secs_3;
-  button2Push = set_total_secs_10;
+  button3Push = set_total_secs_10;
   timerOn = false;
   readTmblr = true;
 
@@ -99,11 +99,13 @@ void checkControls() {
   if (digitalRead(CARD_PIN) == HIGH) {
     button1Push = stopTimer;
     button2Push = startTimer;
-    button2Push = resetTimer;
+    button3Push = resetTimer;
+    encodeDigit = encodeHumanDigit;
   } else {
     button1Push = divide_secs_2;
     button2Push = divide_secs_3;
-    button2Push = set_total_secs_10;
+    button3Push = set_total_secs_10;
+    encodeDigit = encodePredatorDigit;
   }
   if (digitalRead(REMOTE_PIN) == HIGH) {
     static uint32_t lastDebounceRemoteTime;
