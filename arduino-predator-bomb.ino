@@ -16,8 +16,8 @@
 #define BOOM_PIN 12
 
 // === Settings ===
-uint32_t initialTimer = 30 * 60;  // в секундах
-uint32_t remoteTimer = 2 * 60;  // в секундах
+const uint32_t initialTimer = 30 * 60;  // в секундах
+const uint32_t remoteTimer = 2 * 60;  // в секундах
 
 #define ONE_SECOND 1000
 #define DEBOUNCE_DELAY 500
@@ -32,6 +32,7 @@ void (*button1Push)();
 void (*button2Push)();
 void (*button3Push)();
 uint32_t totalSecs;
+uint32_t timerStartMillis;
 bool timerOn;
 bool readTmblr;
 
@@ -109,7 +110,7 @@ void checkControls() {
   if (digitalRead(REMOTE_PIN) == HIGH) {
     static uint32_t lastDebounceRemoteTime;
     if ((millis() - lastDebounceRemoteTime) > DEBOUNCE_DELAY) {
-      resetTimer();
+      remoteReset();
       startTimer();
       lastDebounceRemoteTime = millis();
     }
@@ -130,16 +131,15 @@ void tick() {
     return;
   }
   if (totalSecs <= 0) {
+    stopTimer();
     boom();
-    timerOn = false;
     return;
   }
-  
-  static uint32_t previousMillis;
-  uint32_t currentMillis = millis();
-  if (currentMillis - previousMillis >= ONE_SECOND) {
-    previousMillis = currentMillis;
 
+  uint32_t curMillis = millis();
+  uint32_t secondsLeft = (curMillis - timerStartMillis) / 1000ul;
+  if (secondsLeft > 0) {
+    timerStartMillis = curMillis;
     totalSecs = totalSecs - 1ul;
     showTime(totalSecs);
   }

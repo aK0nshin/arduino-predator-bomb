@@ -15,7 +15,10 @@ void stopTimer() {
 }
 
 void startTimer() {
-  timerOn = true;
+  if (timerOn == false) {
+    timerStartMillis = millis();
+    timerOn = true;
+  }
 }
 
 void resetTimer() {
