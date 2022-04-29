@@ -60,14 +60,14 @@ uint8_t encodeHumanDigit(uint8_t digit) {
   return digitToHumanSegment[digit & 0x0f];
 }
 
-uint8_t* encodePair(uint8_t x) {
+uint8_t* encodePair(uint16_t x) {
   static uint8_t r[2];
-  r[0] = encodeDigit(x / 10ul);
-  r[1] = encodeDigit(x % 10ul);
+  r[0] = encodeDigit(x / 10);
+  r[1] = encodeDigit(x % 10);
   return r;
 }
 
-void showTime(uint8_t secs) {
+void showTime(uint16_t secs) {
 //  uint8_t data[] = { secs / , 0, 0, 0 };
   tm_display.showNumberDec(secs);
 

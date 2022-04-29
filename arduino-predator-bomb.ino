@@ -16,8 +16,8 @@
 #define BOOM_PIN 12
 
 // === Settings ===
-const uint32_t initialTimer = 30 * 60;  // в секундах
-const uint32_t remoteTimer = 2 * 60;  // в секундах
+const uint16_t initialTimer = 30 * 60;  // в секундах
+const uint16_t remoteTimer = 2 * 60;  // в секундах
 
 #define ONE_SECOND 1000
 #define DEBOUNCE_DELAY 500
@@ -31,7 +31,7 @@ uint8_t (*encodeDigit)(uint8_t);
 void (*button1Push)();
 void (*button2Push)();
 void (*button3Push)();
-uint32_t totalSecs;
+uint16_t totalSecs;
 uint32_t timerStartMillis;
 bool timerOn;
 bool readTmblr;
@@ -140,7 +140,7 @@ void tick() {
   uint32_t secondsLeft = (curMillis - timerStartMillis) / 1000ul;
   if (secondsLeft > 0) {
     timerStartMillis = curMillis;
-    totalSecs = totalSecs - 1ul;
+    totalSecs = totalSecs - 1;
     showTime(totalSecs);
   }
 }
