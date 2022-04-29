@@ -22,6 +22,7 @@ void resetTimer() {
   stopTimer();
   totalSecs = initialTimer;
   showTime(totalSecs);
+  tm_display.clear();
 }
 
 void remoteReset() {
