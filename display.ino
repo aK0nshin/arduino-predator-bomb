@@ -7,7 +7,7 @@ const uint8_t digitToPredatorSegment[] = {
 //     ---
 //      D
  // XGFEDCBA
-  0b00011011,    // 0
+  0b00101101,    // 0
   0b01001001,    // 1
   0b00100110,    // 2
   0b01011100,    // 3
