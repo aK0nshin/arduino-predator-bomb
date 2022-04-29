@@ -2,7 +2,6 @@
 #include <TM1637Display.h>
 
 
-
 // === PINS ==
 #define DISPLAY_CLK_PIN 2
 #define DISPLAY_DIO_PIN 3
@@ -17,8 +16,8 @@
 #define BOOM_PIN 12
 
 // === Settings ===
-int32_t initialTimer = 1800;  // в секундах
-int32_t remoteTimer = 120;  // в секундах
+uint32_t initialTimer = 30 * 60;  // в секундах
+uint32_t remoteTimer = 2 * 60;  // в секундах
 
 #define ONE_SECOND 1000
 #define DEBOUNCE_DELAY 500
@@ -32,7 +31,7 @@ uint8_t (*encodeDigit)(uint8_t);
 void (*button1Push)();
 void (*button2Push)();
 void (*button3Push)();
-int32_t totalSecs;
+uint32_t totalSecs;
 bool timerOn;
 bool readTmblr;
 
@@ -130,7 +129,7 @@ void tick() {
   if (!timerOn) {
     return;
   }
-  if (totalSecs < 0) {
+  if (totalSecs <= 0) {
     boom();
     timerOn = false;
     return;
@@ -141,7 +140,7 @@ void tick() {
   if (currentMillis - previousMillis >= ONE_SECOND) {
     previousMillis = currentMillis;
 
-    totalSecs -= 1;
+    totalSecs = totalSecs - 1ul;
     showTime(totalSecs);
   }
 }
@@ -163,6 +162,7 @@ void sad_melody() {
 
 void boom()
 {
+  delay(ONE_SECOND);
   sad_melody();
   digitalWrite(BOOM_PIN, HIGH);
   delay(BOOM_DURATION);

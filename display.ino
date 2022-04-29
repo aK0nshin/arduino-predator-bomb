@@ -62,14 +62,14 @@ uint8_t encodeHumanDigit(uint8_t digit) {
 
 uint8_t* encodePair(uint8_t x) {
   static uint8_t r[2];
-  r[0] = encodeDigit(x / 10);
-  r[1] = encodeDigit(x % 10);
+  r[0] = encodeDigit(x / 10ul);
+  r[1] = encodeDigit(x % 10ul);
   return r;
 }
 
 void showTime(uint8_t secs) {
-  tm_display.setSegments(encodePair(secs / 60), 2, 0);
-  tm_display.setSegments(encodePair(secs % 60), 2, 2);
+  tm_display.setSegments(encodePair(secs / 60ul), 2, 0);
+  tm_display.setSegments(encodePair(secs % 60ul), 2, 2);
 }
 
 void showStatus() {
